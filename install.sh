@@ -9,3 +9,7 @@ ln -s "$PWD"/dot_vim/ ~/.vim
 # linking the tmux configuration
 echo "Linking .tmux.conf file..."
 ln -s "$PWD"/dot_tmux.conf ~/.tmux.conf
+
+# and tmuxinator
+echo "Linking .tmuxinator directory..."
+ln -s "$PWD"/dot_tmuxinator ~/.tmuxinator

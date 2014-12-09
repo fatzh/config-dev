@@ -20,6 +20,18 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
 " Easy navigation between vim and tmux panes
 Plugin 'christoomey/vim-tmux-navigator'
+" Seoul colorscheme
+Plugin 'junegunn/seoul256.vim.git'
+" NERDTree for file exploring
+Plugin 'scrooloose/nerdtree'
+" Synatx checking
+Plugin 'scrooloose/syntastic'
+" Airline
+Plugin 'bling/vim-airline'
+" Ack to grep files
+Plugin 'mileszs/ack.vim'
+" code completion
+Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -54,14 +66,36 @@ syntax on
 " highlight search results
 set hlsearch
 
+" find as you type
+set incsearch
+
+" case insensitive search
+set ignorecase
+set smartcase
+
 " indent same level as previous line
 set autoindent
 
 " line numbering
 set number
 
+" highlight current line
+set cursorline
+
 " backspace for dummy..
 set backspace=indent,eol,start
+
+" stop wrapping long lines\
+set nowrap
+
+" Change working directory to the current file location
+autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+
+" more history
+set history=1000
+
+" keep a few lines around when scrolling
+set scrolloff=5
 
 " ------
 " INDENT
@@ -79,6 +113,11 @@ set tabstop=2
 " backspace deletes indent
 set softtabstop=2
 
+" for python file, use 4 spaces for indent
+autocmd FileType python set sw=4
+autocmd FileType python set ts=4
+autocmd FileType python set sts=4
+
 
 
 " --------
@@ -93,3 +132,74 @@ noremap <Right> <NOP>
 
 " leader key is ,
 let mapleader = ','
+
+" navigate panes using easier commands
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-l> <c-w>l
+map <c-h> <c-w>h
+
+" paste mode with F12
+set pastetoggle=<F12>
+
+" clear search highlighting
+nmap <silent> <leader>/ :invhlsearch<CR>
+
+" visual shifting without loosing selection
+vnoremap < <gv
+vnoremap > >gv
+
+" sudo to write file if required
+cmap w!! w !sudo tee % >/dev/null
+
+" adjust panes to be the same size
+map <leader>= <C-w>=
+" -----------
+" COLORSCHEME
+" -----------
+set background=dark
+" a bit darker
+let g:seoul256_background = 235
+colorscheme seoul256
+
+
+" --------------------
+" Plugin configuration
+" --------------------
+
+" Airline
+" -------
+
+" show airline all the time
+set laststatus=2
+" add support for powerline font
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep='›'  " Slightly fancier than '>'
+let g:airline_right_sep='‹' " Slightly fancier than '<'
+
+" NERDTree
+" --------
+
+" toggle nerdtree
+map <C-e> <plug>NERDTreeTabsToggle<CR>
+
+" show current file in NERDTree
+map <leader>e :NERDTreeFind<CR>
+
+" NERDTree configuration
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+let NERDTreeChDirMode=0
+let NERDTreeQuitOnOpen=1
+let NERDTreeMouseMode=2
+let NERDTreeShowHidden=1
+let NERDTreeKeepTreeInNewTab=1
+
+" CtrlP
+" -----
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+  \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+
+
