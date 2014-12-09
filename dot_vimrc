@@ -133,12 +133,6 @@ noremap <Right> <NOP>
 " leader key is ,
 let mapleader = ','
 
-" navigate panes using easier commands
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
-
 " paste mode with F12
 set pastetoggle=<F12>
 
@@ -181,7 +175,7 @@ let g:airline_right_sep='‹' " Slightly fancier than '<'
 " --------
 
 " toggle nerdtree
-map <C-e> <plug>NERDTreeTabsToggle<CR>
+map <C-e> :NERDTreeToggle<CR>
 
 " show current file in NERDTree
 map <leader>e :NERDTreeFind<CR>
@@ -202,4 +196,14 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|\.hg$\|\.svn$',
   \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
 
+" YouCompleteMe
+" -------------
 
+" jump to definition
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
+
+" Tmux-navigation
+" ---------------
+
+" requires to kill the bash ctrl-j handler
+let g:BASH_Ctrl_j = 'off'

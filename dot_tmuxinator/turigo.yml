@@ -22,7 +22,9 @@ windows:
   - editor:
       layout: 219c,318x88,0,0[318x64,0,0,13,318x23,0,65{105x23,0,65,14,105x23,106,65,15,106x23,212,65,16}]
       panes:
-        - vim
+        - vim:
+          - workon turigo
+          - vim
         - runserver:
           - workon turigo
           - ipython manage.py runserver
