@@ -32,6 +32,8 @@ Plugin 'bling/vim-airline'
 Plugin 'mileszs/ack.vim'
 " code completion
 Plugin 'Valloric/YouCompleteMe'
+" Git wrapper
+Plugin 'tpope/vim-fugitive'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -97,6 +99,9 @@ set history=1000
 " keep a few lines around when scrolling
 set scrolloff=5
 
+" encoding
+set encoding=utf-8
+
 " ------
 " INDENT
 " ------
@@ -151,6 +156,10 @@ map <leader>= <C-w>=
 " -----------
 " COLORSCHEME
 " -----------
+
+" force 256 colors
+set t_Co=256
+
 set background=dark
 " a bit darker
 let g:seoul256_background = 235
@@ -168,8 +177,6 @@ colorscheme seoul256
 set laststatus=2
 " add support for powerline font
 let g:airline_powerline_fonts = 1
-let g:airline_left_sep='›'  " Slightly fancier than '>'
-let g:airline_right_sep='‹' " Slightly fancier than '<'
 
 " NERDTree
 " --------
@@ -184,7 +191,7 @@ map <leader>e :NERDTreeFind<CR>
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
 let NERDTreeChDirMode=0
-let NERDTreeQuitOnOpen=1
+let NERDTreeQuitOnOpen=0
 let NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
