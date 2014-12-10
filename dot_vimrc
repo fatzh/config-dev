@@ -34,6 +34,12 @@ Plugin 'mileszs/ack.vim'
 Plugin 'Valloric/YouCompleteMe'
 " Git wrapper
 Plugin 'tpope/vim-fugitive'
+" Surround control
+Plugin 'tpope/vim-surround'
+" For javascript
+Plugin 'pangloss/vim-javascript'
+" Quick HTML coding
+Plugin 'mattn/emmet-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -203,6 +209,10 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|\.hg$\|\.svn$',
   \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
 
+
+" leader-p will search in buffers
+nnoremap <leader>p :CtrlPBuffer<CR>
+
 " YouCompleteMe
 " -------------
 
@@ -214,3 +224,19 @@ nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
 " requires to kill the bash ctrl-j handler
 let g:BASH_Ctrl_j = 'off'
+
+" Emmet
+" -----
+
+" Emmet completion triggered with ctrl-m,
+let g:user_emmet_leader_key='<C-m>'
+
+" Fugitive
+" --------
+
+" add file
+nnoremap <leader>ga :Gwrite<CR>
+nnoremap <leader>gcm :Gcommit<CR>
+nnoremap <leader>gco :Gcheckout<CR>
+nnoremap <leader>gpl :Gpull<CR>
+nnoremap <leader>gps :Gpush<CR>
