@@ -40,6 +40,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'pangloss/vim-javascript'
 " Quick HTML coding
 Plugin 'mattn/emmet-vim'
+" auto close brackets and such
+Plugin 'Townk/vim-autoclose'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
