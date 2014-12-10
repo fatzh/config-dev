@@ -234,9 +234,10 @@ let g:user_emmet_leader_key='<C-m>'
 " Fugitive
 " --------
 
-" add file
+" to make it a bit quicker
 nnoremap <leader>ga :Gwrite<CR>
 nnoremap <leader>gcm :Gcommit<CR>
 nnoremap <leader>gco :Gcheckout<CR>
 nnoremap <leader>gpl :Gpull<CR>
 nnoremap <leader>gps :Gpush<CR>
+nnoremap <leader>gs :Gstatus<CR>
