@@ -24,37 +24,15 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'junegunn/seoul256.vim.git'
 " NERDTree for file exploring
 Plugin 'scrooloose/nerdtree'
-" Synatx checking
-Plugin 'scrooloose/syntastic'
 " Airline
 Plugin 'bling/vim-airline'
 " Ack to grep files
 Plugin 'mileszs/ack.vim'
 " code completion
 Plugin 'Valloric/YouCompleteMe'
-" Git wrapper
-Plugin 'tpope/vim-fugitive'
-" Surround control
-Plugin 'tpope/vim-surround'
-" For javascript
-Plugin 'pangloss/vim-javascript'
-" Quick HTML coding
-Plugin 'mattn/emmet-vim'
-" auto close brackets and such
-Plugin 'Townk/vim-autoclose'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-
-" -----------------
-" AUTO-RELOAD VIMRC
-" -----------------
-
-augroup reload_vimrc " {
-  autocmd!
-  autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
-
 
 " --------------
 " FILES LOCATION
@@ -145,6 +123,8 @@ noremap <Right> <NOP>
 
 " leader key is ,
 let mapleader = ','
+" don't throw away backward search
+noremap \ ,
 
 " paste mode with F12
 set pastetoggle=<F12>
@@ -226,20 +206,3 @@ nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
 " requires to kill the bash ctrl-j handler
 let g:BASH_Ctrl_j = 'off'
-
-" Emmet
-" -----
-
-" Emmet completion triggered with ctrl-m,
-let g:user_emmet_leader_key='<C-m>'
-
-" Fugitive
-" --------
-
-" to make it a bit quicker
-nnoremap <leader>ga :Gwrite<CR>
-nnoremap <leader>gcm :Gcommit<CR>
-nnoremap <leader>gco :Gcheckout<CR>
-nnoremap <leader>gpl :Gpull<CR>
-nnoremap <leader>gps :Gpush<CR>
-nnoremap <leader>gs :Gstatus<CR>
