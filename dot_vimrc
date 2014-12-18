@@ -33,6 +33,7 @@ Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+filetype plugin indent on
 
 " --------------
 " FILES LOCATION
@@ -44,9 +45,6 @@ set directory=$HOME/.vim/swap//
 " ------------------
 " BASIC CONFIGURATION
 " -------------------
-
-" detect file type
-filetype plugin indent on
 
 " syntax highlighting
 syntax on
@@ -105,10 +103,7 @@ set tabstop=2
 set softtabstop=2
 
 " for python file, use 4 spaces for indent
-autocmd FileType python set sw=4
-autocmd FileType python set ts=4
-autocmd FileType python set sts=4
-
+autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 
 
 " --------
@@ -132,15 +127,12 @@ set pastetoggle=<F12>
 " clear search highlighting
 nmap <silent> <leader>/ :invhlsearch<CR>
 
-" visual shifting without loosing selection
-vnoremap < <gv
-vnoremap > >gv
-
 " sudo to write file if required
 cmap w!! w !sudo tee % >/dev/null
 
 " adjust panes to be the same size
 map <leader>= <C-w>=
+
 " -----------
 " COLORSCHEME
 " -----------
@@ -199,7 +191,12 @@ nnoremap <leader>p :CtrlPBuffer<CR>
 " -------------
 
 " jump to definition
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
+nnoremap <leader>j :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" close preview window when choice selected
+let g:ycm_autoclose_preview_window_after_completion=1
+
+
 
 " Tmux-navigation
 " ---------------
