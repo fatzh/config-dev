@@ -13,3 +13,9 @@ ln -s "$PWD"/dot_tmux.conf ~/.tmux.conf
 # and tmuxinator
 echo "Linking .tmuxinator directory..."
 ln -s "$PWD"/dot_tmuxinator ~/.tmuxinator
+
+# and zsh stuff
+echo "Linking .zshrc and .zpreztorc"
+ln -s "$PWD"/dot_zshrc ~/.zshrc
+ln -s "$PWD"/dot_zpreztorc ~/.zpreztorc
+

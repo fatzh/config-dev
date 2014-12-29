@@ -30,6 +30,12 @@ Plugin 'bling/vim-airline'
 Plugin 'mileszs/ack.vim'
 " code completion
 Plugin 'Valloric/YouCompleteMe'
+" Git
+Plugin 'tpope/vim-fugitive'
+" Python mode
+Plugin 'klen/python-mode'
+" syntax checking
+Plugin 'scrooloose/syntastic'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -200,8 +206,6 @@ nnoremap <leader>j :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " close preview window when choice selected
 let g:ycm_autoclose_preview_window_after_completion=1
 
-
-
 " recommanded Django settings
 let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
 let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
@@ -214,3 +218,31 @@ let g:ycm_complete_in_strings = 1 " Completion in string
 
 " requires to kill the bash ctrl-j handler
 let g:BASH_Ctrl_j = 'off'
+
+" Python mode
+" -----------
+
+" we don't want it to do any linting or completion, 
+" Syntastic and YouCompleteMe are taking care of that already
+let g:pymode_rope = 0
+let g:pymode_lint = 0
+
+" Python doc by pressing D
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
+
+" Support virtualenv
+let g:pymode_virtualenv = 1
+
+" Enable breakpoints plugin
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_key = '<leader>b'
+
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" Don't autofold code
+let g:pymode_folding = 0
