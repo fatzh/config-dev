@@ -69,7 +69,7 @@ set smartcase
 set autoindent
 
 " line numbering
-set number
+set relativenumber
 
 " highlight current line
 set cursorline
