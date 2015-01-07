@@ -36,4 +36,7 @@ if [ -f ~/.zpreztorc ] ; then
   rm ~/.zpreztorc
 fi
 ln -s "$PWD"/dot_zpreztorc ~/.zpreztorc
-
+if [ -d ~/.zsh.prompts ] ; then
+  rm ~/.zsh.prompts
+fi
+ln -s "$PWD"/dot_zsh.prompts ~/.zsh.prompts

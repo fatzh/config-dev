@@ -25,7 +25,7 @@ windows:
         - vim:
           - vim
         - log:
-          - tail -f /var/log/php/php.log
+          - tail -f /var/log/php/php_errors.log
         - grunt:
           - cd themes/easy_render/
           - grunt
