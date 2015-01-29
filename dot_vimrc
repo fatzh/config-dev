@@ -36,6 +36,12 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'klen/python-mode'
 " syntax checking
 Plugin 'scrooloose/syntastic'
+" surround
+Plugin 'tpope/vim-surround'
+" comments
+Plugin 'scrooloose/nerdcommenter'
+" snippets
+Plugin 'SirVer/ultisnips'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -111,6 +117,13 @@ set softtabstop=2
 " for python file, use 4 spaces for indent
 autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 
+" -----------------
+" Auto reload vimrc
+"------------------
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
 
 " --------
 " MAPPINGS
@@ -138,9 +151,6 @@ cmap w!! w !sudo tee % >/dev/null
 
 " adjust panes to be the same size
 map <leader>= <C-w>=
-
-" save session, can be reopened using vim -S
-nnoremap <leader>s :mksession<CR>
 
 " -----------
 " COLORSCHEME
@@ -215,6 +225,29 @@ let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
 let g:ycm_complete_in_comments = 1 " Completion in comments
 let g:ycm_complete_in_strings = 1 " Completion in string
+let g:ycm_min_num_of_chars_for_completion = 1 " to complete short snippets
+
+" UtliSnips
+" ---------
+
+" tab conflicts with youcompleteme
+let g:UltiSnipsExpandTrigger = '<c-s>'
+" let use the enter key when snippet in youcompleteme list
+let g:ulti_expand_or_jump_res = 0
+function! ExpandSnippetOrCarriageReturn()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<CR>"
+    endif
+endfunction
+inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+
+" to edit snippets
+nnoremap <leader>s :UltiSnipsEdit<CR>
+" edit snippets for current filetype, in an horizontal split
+let g:UltiSnipsEditSplit = "horizontal"
 
 " Tmux-navigation
 " ---------------
