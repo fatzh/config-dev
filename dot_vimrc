@@ -76,6 +76,7 @@ set autoindent
 
 " line numbering
 set relativenumber
+set number
 
 " highlight current line
 set cursorline

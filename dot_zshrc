@@ -21,3 +21,6 @@ export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
 
 # so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
 stty -ixon
+
+# required ny mactex
+eval `/usr/libexec/path_helper -s`
