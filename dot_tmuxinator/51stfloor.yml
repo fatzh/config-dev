@@ -1,0 +1,32 @@
+# ~/.tmuxinator/51stfloor.yml
+
+name: 51stfloor
+root: ~/code/gmbh/web
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+windows:
+  - editor:
+      layout: 219c,318x88,0,0[318x64,0,0,13,318x23,0,65{105x23,0,65,14,105x23,106,65,15,106x23,212,65,16}]
+      panes:
+        - vim:
+          - vim
+        - log:
+          - tail -f /var/log/php/php_errors.log
+        - grunt:
+          - cd sites/all/themes/custom/singlepage/
+          - grunt
+        - ls

@@ -16,8 +16,10 @@ fi
 export WORKON_HOME=~/Envs
 source /usr/local/bin/virtualenvwrapper.sh
 
-# custom PATH for homebrew stuff
-export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
+# custom PATH 
+# adding path for homebrew stuff
+# adding path for composer stuff
+export PATH="$(brew --prefix homebrew/php/php55)/bin:$HOME/.composer/vendor/bin:$PATH"
 
 # so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
 stty -ixon
