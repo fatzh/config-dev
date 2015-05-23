@@ -21,6 +21,9 @@ source /usr/local/bin/virtualenvwrapper.sh
 # adding path for composer stuff
 export PATH="$(brew --prefix homebrew/php/php55)/bin:$HOME/.composer/vendor/bin:$PATH"
 
+# adding path for homebrew sbin stuff
+export PATH="/usr/local/sbin:$PATH"
+
 # so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
 stty -ixon
 

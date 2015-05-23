@@ -42,6 +42,10 @@ Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdcommenter'
 " snippets
 Plugin 'SirVer/ultisnips'
+" HTML + PHP indent
+Plugin 'captbaritone/better-indent-support-for-php-with-html'
+" Vim + Python
+Plugin 'davidhalter/jedi-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -145,7 +149,7 @@ noremap \ ,
 set pastetoggle=<F12>
 
 " clear search highlighting
-nmap <silent> <leader>/ :invhlsearch<CR>
+nmap <silent> <leader>/ :nohl<CR>
 
 " sudo to write file if required
 cmap w!! w !sudo tee % >/dev/null
@@ -169,6 +173,16 @@ colorscheme seoul256
 " --------------------
 " Plugin configuration
 " --------------------
+
+" Fugitive
+" --------
+
+" git staus and move down to the modified/added files
+noremap <leader>gs :Gstatus<CR>5j
+" git commit, enter in insert mode
+noremap <leader>gc :Gcommit<CR>i
+" git push
+noremap <leader>gp :Gpush<CR>
 
 " Airline
 " -------
