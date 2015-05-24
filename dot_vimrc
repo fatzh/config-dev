@@ -202,6 +202,14 @@ map <C-e> :NERDTreeToggle<CR>
 " show current file in NERDTree
 map <leader>e :NERDTreeFind<CR>
 
+" map "open in split" to be like Ctrl-p
+let NERDTreeMapOpenSplit = 's'
+let NERDTreeMapOpenVSplit = 'v'
+
+" auto close when last open window is a NERDTree panel
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+
 " NERDTree configuration
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
