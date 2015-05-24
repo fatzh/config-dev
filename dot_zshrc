@@ -15,6 +15,7 @@ fi
 # Initialize virtual env wrapper
 export WORKON_HOME=~/Envs
 source /usr/local/bin/virtualenvwrapper.sh
+export PIP_REQUIRE_VIRTUALENV=false
 
 # custom PATH 
 # adding path for homebrew stuff
