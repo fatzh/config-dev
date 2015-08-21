@@ -40,3 +40,9 @@ if [ -d ~/.zsh.prompts ] ; then
   rm ~/.zsh.prompts
 fi
 ln -s "$PWD"/dot_zsh.prompts ~/.zsh.prompts
+# and vifm
+echo "Linking .vifm directory..."
+if [ -d ~/.vifm ] ; then
+  rm ~/.vifm
+fi
+ln -s "$PWD"/dot_vifm ~/.vifm

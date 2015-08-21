@@ -1,7 +1,7 @@
-# ~/.tmuxinator/turigo.yml
+# ~/.tmuxinator/genuss.yml
 
-name: turigo
-root: ~/code/turigo/dist
+name: genuss
+root: ~/code/new-genuss/web
 
 # Optional tmux socket
 # socket_name: foo
@@ -24,10 +24,9 @@ windows:
       panes:
         - vim:
           - vim
-        - runserver:
-          - workon turigo
-          - ipython manage.py runserver
+        - log:
+          - tail -f /var/log/php/php_errors.log
         - grunt:
-          - cd ..
+          - cd sites/all/themes/custom/genuss/
           - grunt
         - ls

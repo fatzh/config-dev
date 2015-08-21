@@ -266,6 +266,10 @@ let g:ycm_semantic_triggers =  {
   \   'lua' : ['.', ':'],
   \   'erlang' : [':'],
   \ }
+
+" force system python (also in virtualenvs)
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+
 " UtliSnips
 " ---------
 
