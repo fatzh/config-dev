@@ -1,5 +1,65 @@
 # You can edit this file by hand, but it's recommended not to do that.
 
 # Bookmarks:
+'c
+	/Volumes/stuff/fatz/code
+	new-renzo-bader
+1440154566
+'d
+	/Volumes/stuff/fatz/Downloads
+	..
+1440154556
+'l
+	/Volumes/stuff/fatz/code/ludic
+	..
+1440154500
+'p
+	/Volumes/stuff/fatz/Dropbox/51stfloor/administratif/passwords
+	..
+1440154544
+'r
+	/Volumes/stuff/fatz/code/new-renzo-bader
+	..
+1440154518
+
+# Command line history (oldest to newest):
+:cd ~/Dropbox/51stfloor/administratif/passwords/
+:marks
+:cd
+:cd ~/.vifm/
+:cd ~/code/ludic/
+:cd /etc/
+:mkdir ftp
+:e ludic.ftp
+:set slowfs=curlftpfs
+:e patch_views_ajax.txt
+:cd ~/Dropbox/51stfloor/administratif/
+:cd /etc
+:!sudo apachectl resart
+:!sudo apachectl restart
+:sort
+:e allauth/
+:mkdir allauth
+:q
+
+# Search history (oldest to newest):
+/ima
+/.vifm
+/host
+/apach
+/pdf
+/date
+/ad
+/pas
+
+# Prompt history (oldest to newest):
+pO
+paccount
 
 # Trash content:
+t/Volumes/stuff/.vifm-Trash/000_.vifmrc
+	/Volumes/stuff/fatz/.vifm/.vifmrc
+t/Volumes/stuff/.vifm-Trash/000_vifmrc.bak
+	/Volumes/stuff/fatz/.vifm/vifmrc.bak
+t/Volumes/stuff/.vifm-Trash/000_vifminfo.bak
+	/Volumes/stuff/fatz/.vifm/vifminfo.bak
