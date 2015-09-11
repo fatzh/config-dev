@@ -24,11 +24,8 @@
 
 # Command line history (oldest to newest):
 :cd ~/Dropbox/51stfloor/administratif/passwords/
-:marks
-:cd
 :cd ~/.vifm/
 :cd ~/code/ludic/
-:cd /etc/
 :mkdir ftp
 :e ludic.ftp
 :set slowfs=curlftpfs
@@ -36,10 +33,18 @@
 :cd ~/Dropbox/51stfloor/administratif/
 :cd /etc
 :!sudo apachectl resart
-:!sudo apachectl restart
-:sort
 :e allauth/
 :mkdir allauth
+:Bookmarks
+:mark
+:!drush pm-enable flippy
+:mkdir data
+:sort
+:marks
+:/etc
+:cd /etc/
+:sudo apachectl restart
+:!sudo apachectl restart
 :q
 
 # Search history (oldest to newest):
@@ -51,10 +56,22 @@
 /date
 /ad
 /pas
+/kag
 
 # Prompt history (oldest to newest):
 pO
 paccount
+pcustom_flippy
+pcustom_flippy.css
+pcustom_flippy.info
+pcustom_flippy.install
+pcustom_flippy.module
+pcustom_flippy.tpl.php
+pflippy
+pflippy.css
+pflippy.tpl.php
+pflippy.module
+pflippy.info
 
 # Trash content:
 t/Volumes/stuff/.vifm-Trash/000_.vifmrc
@@ -63,3 +80,7 @@ t/Volumes/stuff/.vifm-Trash/000_vifmrc.bak
 	/Volumes/stuff/fatz/.vifm/vifmrc.bak
 t/Volumes/stuff/.vifm-Trash/000_vifminfo.bak
 	/Volumes/stuff/fatz/.vifm/vifminfo.bak
+t/Volumes/stuff/.vifm-Trash/000_vim.snippets
+	/Volumes/stuff/fatz/.vim/UltiSnips/vim.snippets
+t/Volumes/stuff/.vifm-Trash/000_custom_flippy.install
+	/Volumes/stuff/fatz/code/new-renzo-bader/web/sites/all/modules/custom/custom_flippy/custom_flippy.install
