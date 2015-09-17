@@ -158,6 +158,9 @@ cmap w!! w !sudo tee % >/dev/null
 " adjust panes to be the same size
 map <leader>= <C-w>=
 
+" redraw window
+map <leader>r :redraw!<CR>
+
 " -----------
 " COLORSCHEME
 " -----------
