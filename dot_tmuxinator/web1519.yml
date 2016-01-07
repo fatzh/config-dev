@@ -1,7 +1,7 @@
-# ~/.tmuxinator/dashup.yml
+# ~/.tmuxinator/1519.yml
 
-name: dashup
-root: ~/code/dashup/dashup
+name: web1519
+root: ~/code/1519/web
 
 # Optional tmux socket
 # socket_name: foo
@@ -11,7 +11,6 @@ root: ~/code/dashup/dashup
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
 # pre_window: rbenv shell 2.0.0-p247
-pre_window: workon dashup
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -25,8 +24,9 @@ windows:
       panes:
         - vim:
           - vim
-        - runserver:
-          - python manage.py runserver
-        - vifm:
-          - vifm
+        - log:
+          - tail -f /var/log/php/php_errors.log
+        - grunt:
+          - cd sites/all/themes/custom/custom1519/
+          - grunt
         - ls

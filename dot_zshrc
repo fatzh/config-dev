@@ -33,3 +33,7 @@ eval `/usr/libexec/path_helper -s`
 
 # fix Vim with YouCompleteMe
 export DYLD_FORCE_FLAT_NAMESPACE=1
+
+# Zsh super move
+autoload -U zmv
+alias mmv='noglob zmv -W'

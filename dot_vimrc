@@ -48,6 +48,8 @@ Plugin 'captbaritone/better-indent-support-for-php-with-html'
 Plugin 'Lokaltog/vim-easymotion'
 " handles auto cloing
 Plugin 'jiangmiao/auto-pairs'
+" Mardown preview
+Plugin 'JamshedVesuna/vim-markdown-preview'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on
@@ -328,3 +330,12 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
 " Don't autofold code
 let g:pymode_folding = 0
+
+" Markdown Preview
+" ----------------
+
+" Remap preview to Ctrl-M
+let vim_markdown_preview_hotkey='<C-m>'
+
+" Force 80 chars width
+autocmd FileType markdown setlocal tw=80 

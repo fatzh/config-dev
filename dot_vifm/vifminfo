@@ -24,7 +24,6 @@
 
 # Command line history (oldest to newest):
 :cd ~/Dropbox/51stfloor/administratif/passwords/
-:cd ~/.vifm/
 :cd ~/code/ludic/
 :mkdir ftp
 :e ludic.ftp
@@ -45,6 +44,9 @@
 :cd /etc/
 :sudo apachectl restart
 :!sudo apachectl restart
+:help
+:mkdir item
+:mkdir images
 :q
 
 # Search history (oldest to newest):
@@ -72,6 +74,14 @@ pflippy.css
 pflippy.tpl.php
 pflippy.module
 pflippy.info
+pmain.html
+pmain.css_rankle_main.scss
+p_rankle_main.scss
+p_rankle_site.scss
+p_rankle_style.scss
+prankle-header.html
+padd_item_button.html
+psearch_provider.html
 
 # Trash content:
 t/Volumes/stuff/.vifm-Trash/000_.vifmrc
@@ -84,3 +94,13 @@ t/Volumes/stuff/.vifm-Trash/000_vim.snippets
 	/Volumes/stuff/fatz/.vim/UltiSnips/vim.snippets
 t/Volumes/stuff/.vifm-Trash/000_custom_flippy.install
 	/Volumes/stuff/fatz/code/new-renzo-bader/web/sites/all/modules/custom/custom_flippy/custom_flippy.install
+t/Volumes/stuff/.vifm-Trash/000_main.html
+	/Volumes/stuff/fatz/code/rankle/rankle-web/app/views/main.html
+t/Volumes/stuff/.vifm-Trash/000_about.html
+	/Volumes/stuff/fatz/code/rankle/rankle-web/app/views/about.html
+t/Volumes/stuff/.vifm-Trash/000_yeoman.png
+	/Volumes/stuff/fatz/code/rankle/rankle-web/app/images/yeoman.png
+t/Volumes/stuff/.vifm-Trash/000_item
+	/Volumes/stuff/fatz/code/rankle/rankle-web/app/views/item
+t/Volumes/stuff/.vifm-Trash/000_favicon.ico
+	/Volumes/stuff/fatz/code/rankle/rankle-web/app/favicon.ico
