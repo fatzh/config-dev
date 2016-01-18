@@ -41,6 +41,6 @@ windows:
           - python manage.py runserver
         - vifm:
           - vifm
-        -term:
+        - term:
           - workon rankle-api  
           - ls
