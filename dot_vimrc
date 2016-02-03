@@ -151,6 +151,9 @@ noremap \ ,
 " paste mode with F12
 set pastetoggle=<F12>
 
+" encryption blowfish
+set cm=blowfish2
+
 " clear search highlighting
 nmap <silent> <leader>/ :nohl<CR>
 
