@@ -148,8 +148,8 @@ let mapleader = ','
 " don't throw away backward search
 noremap \ ,
 
-" paste mode with F12
-set pastetoggle=<F12>
+" paste mode
+set pastetoggle=<leader>y
 
 " encryption blowfish
 set cm=blowfish2
