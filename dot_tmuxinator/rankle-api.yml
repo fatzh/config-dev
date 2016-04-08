@@ -26,7 +26,7 @@ windows:
           - vim
         - runserver:
           - workon rankle-api
-          - python manage.py runserver
+          - python manage.py runserver api.rankle.me:8000
         - vifm:
           - vifm
         - term:

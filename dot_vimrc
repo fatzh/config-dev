@@ -50,6 +50,8 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'jiangmiao/auto-pairs'
 " Mardown preview
 Plugin 'JamshedVesuna/vim-markdown-preview'
+" Fast Fold
+Plugin 'Konfekt/FastFold'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on
@@ -306,6 +308,12 @@ let g:UltiSnipsEditSplit = "horizontal"
 " requires to kill the bash ctrl-j handler
 let g:BASH_Ctrl_j = 'off'
 
+" Syntastic
+" --------
+
+" 80 char width is not enforced...
+let g:syntastic_python_flake8_args='--ignore=E501,E225'
+
 " Python mode
 " -----------
 
@@ -332,7 +340,7 @@ let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
 " Don't autofold code
-let g:pymode_folding = 0
+let g:pymode_folding = 1
 
 " Markdown Preview
 " ----------------
