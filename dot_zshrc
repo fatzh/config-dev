@@ -13,14 +13,22 @@ fi
 # Customize to your needs...
 
 # Initialize virtual env wrapper
-export WORKON_HOME=~/Envs
-source /usr/local/bin/virtualenvwrapper.sh
-export PIP_REQUIRE_VIRTUALENV=false
+if [[ -s "/usr/local/bin/virtualenvwrapper.sh" ]]; then
+  export WORKON_HOME=~/Envs
+  source /usr/local/bin/virtualenvwrapper.sh
+  export PIP_REQUIRE_VIRTUALENV=false
+fi
+
+if [[ -s "/usr/share/virtualenvwrapper/virtualenvwrapper.sh" ]]; then
+  source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+fi
 
 # custom PATH 
 # adding path for homebrew stuff
 # adding path for composer stuff
-export PATH="$(brew --prefix homebrew/php/php55)/bin:$HOME/.composer/vendor/bin:$PATH"
+if type "brew" > /dev/null; then
+  export PATH="$(brew --prefix homebrew/php/php55)/bin:$HOME/.composer/vendor/bin:$PATH"
+fi
 
 # adding path for homebrew sbin stuff
 export PATH="/usr/local/sbin:$PATH"
@@ -29,7 +37,17 @@ export PATH="/usr/local/sbin:$PATH"
 stty -ixon
 
 # required ny mactex
-eval `/usr/libexec/path_helper -s`
+if [[ -s "/usr/libexec/path_helper" ]]; then
+  eval `/usr/libexec/path_helper -s`
+fi
+
+# npm global packages in user directory
+NPM_PACKAGES="${HOME}/.npm-packages"
+PATH="$NPM_PACKAGES/bin:$PATH"
+
+# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
+unset MANPATH # delete if you already modified MANPATH elsewhere in your config
+export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 # fix Vim with YouCompleteMe
 export DYLD_FORCE_FLAT_NAMESPACE=1
@@ -37,3 +55,5 @@ export DYLD_FORCE_FLAT_NAMESPACE=1
 # Zsh super move
 autoload -U zmv
 alias mmv='noglob zmv -W'
+
+cd $HOME
