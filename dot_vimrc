@@ -49,7 +49,9 @@ Plugin 'Lokaltog/vim-easymotion'
 " handles auto cloing
 Plugin 'jiangmiao/auto-pairs'
 " Mardown preview
-Plugin 'JamshedVesuna/vim-markdown-preview'
+" Plugin 'JamshedVesuna/vim-markdown-preview'
+" Plugin 'vim-pandoc/vim-pandoc'
+" Plugin 'vim-pandoc/vim-pandoc-syntax' 
 " Fast Fold
 Plugin 'Konfekt/FastFold'
 " All of your Plugins must be added before the following line
@@ -127,6 +129,9 @@ set softtabstop=2
 " for python file, use 4 spaces for indent
 autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 
+" for email, wrap, spellcheck
+autocmd FileType mail setlocal textwidth=80 wrap spell
+
 " -----------------
 " Auto reload vimrc
 "------------------
@@ -167,6 +172,12 @@ map <leader>= <C-w>=
 
 " redraw window
 map <leader>r :redraw!<CR>
+
+" reload vimrc
+map <leader>v :so $MYVIMRC<CR>
+
+" digraphs conflicts in mutt...
+imap <leader>k <C-k>
 
 " -----------
 " COLORSCHEME
@@ -284,11 +295,14 @@ let g:ycm_semantic_triggers =  {
 " force system python (also in virtualenvs)
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 
+" I actually want to use some snippet in markdown documents
+let g:ycm_filetype_blacklist = {}
+
 " UtliSnips
 " ---------
 
 " tab conflicts with youcompleteme
-let g:UltiSnipsExpandTrigger = '<c-s>'
+let g:UltiSnipsExpandTrigger = "<tab>"
 " let use the enter key when snippet in youcompleteme list
 let g:ulti_expand_or_jump_res = 0
 function! ExpandSnippetOrCarriageReturn()
@@ -346,11 +360,11 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " Don't autofold code
 let g:pymode_folding = 1
 
-" Markdown Preview
+" Markdown/Pandoc
 " ----------------
 
-" Remap preview to Ctrl-M
-let vim_markdown_preview_hotkey='<C-m>'
+" Remap preview to leader-m
+map <leader>m :!pandoc % <bar> bcat <CR>
 
 " Force 80 chars width
 autocmd FileType markdown setlocal tw=80 

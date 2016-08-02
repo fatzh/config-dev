@@ -1,0 +1,8 @@
+snippet post "Jekyll post front matter" !b
+---
+layout: post
+title: "${1:Enter title}"
+date: `!v strftime("%Y-%m-%d %H:%M:%S %z")`
+categories: ${2:...}
+---
+endsnippet
