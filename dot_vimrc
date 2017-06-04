@@ -20,14 +20,18 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
 " Easy navigation between vim and tmux panes
 Plugin 'christoomey/vim-tmux-navigator'
-" Seoul colorscheme
-Plugin 'junegunn/seoul256.vim.git'
+" colorscheme
+Plugin 'altercation/vim-colors-solarized'
 " NERDTree for file exploring
 Plugin 'scrooloose/nerdtree'
 " Airline
 Plugin 'bling/vim-airline'
+" and Airline themes
+Plugin 'vim-airline/vim-airline-themes'
 " Ack to grep files
 Plugin 'mileszs/ack.vim'
+" Substitute smart
+Plugin 'tpope/vim-abolish'
 " code completion
 Plugin 'Valloric/YouCompleteMe'
 " Git
@@ -36,6 +40,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'klen/python-mode'
 " syntax checking
 Plugin 'scrooloose/syntastic'
+Plugin 'mtscout6/syntastic-local-eslint.vim'
 " surround
 Plugin 'tpope/vim-surround'
 " comments
@@ -54,6 +59,15 @@ Plugin 'jiangmiao/auto-pairs'
 " Plugin 'vim-pandoc/vim-pandoc-syntax' 
 " Fast Fold
 Plugin 'Konfekt/FastFold'
+" Plugin to Qdo an action on all the quikfix list
+Plugin 'henrik/vim-qargs'
+" Syntax for API blueprint
+Plugin 'kylef/apiblueprint.vim'
+" Syntax for typescript
+Plugin 'leafgarland/typescript-vim'
+" Syntax for JSX
+Plugin 'pangloss/vim-javascript'
+Plugin 'maxmellon/vim-jsx-pretty'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on
@@ -186,10 +200,8 @@ imap <leader>k <C-k>
 " force 256 colors
 set t_Co=256
 
-set background=dark
-" a bit darker
-let g:seoul256_background = 235
-colorscheme seoul256
+set background=light
+colorscheme solarized
 
 " custom split bar
 set fillchars+=vert:\ 
@@ -217,6 +229,8 @@ noremap <leader>gp :Gpush<CR>
 set laststatus=2
 " add support for powerline font
 let g:airline_powerline_fonts = 1
+" light theme
+let g:airline_theme='solarized'
 
 " NERDTree
 " --------
@@ -320,6 +334,13 @@ nnoremap <leader>s :UltiSnipsEdit<CR>
 " edit snippets for current filetype, in an horizontal split
 let g:UltiSnipsEditSplit = "horizontal"
 
+" Ack
+" ----
+
+" this is an alias to perform search in whole project
+" using the Gcd command (fugitive)
+cnoreabbrev ag Gcd <bar> Ack!
+
 " Tmux-navigation
 " ---------------
 
@@ -329,8 +350,20 @@ let g:BASH_Ctrl_j = 'off'
 " Syntastic
 " --------
 
-" 80 char width is not enforced...
+" 80 char width is not enforced for python...
 let g:syntastic_python_flake8_args='--ignore=E501,E225'
+" eslint if available for JS projects
+let g:syntastic_javascript_checkers=['eslint']
+
+" global configuration (recommended default...)
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
 
 " Python mode
 " -----------

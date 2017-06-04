@@ -12,6 +12,12 @@ fi
 
 # Customize to your needs...
 
+export EDITOR='vim'
+
+# auto complete stuff
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit && compinit -i
+
 # Initialize virtual env wrapper
 if [[ -s "/usr/local/bin/virtualenvwrapper.sh" ]]; then
   export WORKON_HOME=~/Envs
@@ -23,8 +29,15 @@ if [[ -s "/usr/share/virtualenvwrapper/virtualenvwrapper.sh" ]]; then
   source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 fi
 
+if [[ -s "/etc/bash_completion.d/virtualenvwrapper" ]]; then
+  export WORKON_HOME=$HOME/.virtualenvs
+  export PROJECT_HOME=$HOME/code
+  source /etc/bash_completion.d/virtualenvwrapper
+fi
+
 # custom PATH 
-# adding path for homebrew stuff
+# adding path for local stuff
+export PATH="$PATH:$HOME/bin"
 # adding path for composer stuff
 if type "brew" > /dev/null; then
   export PATH="$(brew --prefix homebrew/php/php55)/bin:$HOME/.composer/vendor/bin:$PATH"
@@ -42,7 +55,7 @@ if [[ -s "/usr/libexec/path_helper" ]]; then
 fi
 
 # npm global packages in user directory
-NPM_PACKAGES="${HOME}/.npm-packages"
+NPM_PACKAGES="${HOME}/.npm-global"
 PATH="$NPM_PACKAGES/bin:$PATH"
 
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
@@ -56,4 +69,17 @@ export DYLD_FORCE_FLAT_NAMESPACE=1
 autoload -U zmv
 alias mmv='noglob zmv -W'
 
+# source tmuxinator completion
+source /usr/share/zsh/vendor_completions/_tmuxinator
+
+# if logging in form SSH, start tmux
+# if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ]; then
+#     tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
+# fi
+
 cd $HOME
+
+# load aliases
+if [[ -s "$HOME/.aliases" ]]; then
+  source $HOME/.aliases
+fi

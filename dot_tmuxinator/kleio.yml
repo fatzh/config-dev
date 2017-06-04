@@ -1,0 +1,59 @@
+# ~/.tmuxinator/kleio.yml
+
+name: kleio
+root: ~/code/kleio/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+windows:
+  - kleio api:
+      layout: 219c,318x88,0,0[318x64,0,0,13,318x23,0,65{105x23,0,65,14,105x23,106,65,15,106x23,212,65,16}]
+      panes:
+        - vim:
+          - cd ~/code/kleio/kleio-api/
+          - workon kleio
+          - vim
+        - runserver:
+          - cd ~/code/kleio/kleio-api/
+          - workon kleio
+          - ./manage.py runserver 0.0.0.0:8000
+        - ipython:
+          - cd ~/code/kleio/kleio-api/
+          - workon kleio
+          - ipython
+        - term:
+          - cd ~/code/kleio/kleio-api/
+          - workon kleio
+          - ls
+  - kleio web:
+      layout: 219c,318x88,0,0[318x64,0,0,13,318x23,0,65{105x23,0,65,14,105x23,106,65,15,106x23,212,65,16}]
+      panes:
+        - vim:
+          - cd ~/code/kleio/kleio-web/
+          - vim
+        - grunt:
+          - cd ~/code/kleio/kleio-web/
+          - grunt serve
+        - term:
+          - cd ~/code/kleio/kleio-web/
+          - ls
+        - term:
+          - cd ~/code/kleio/kleio-web/
+          - ls
+  - stuff:
+      layout: main-vertical
+      panes:
+        - ls

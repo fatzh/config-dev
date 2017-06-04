@@ -1,0 +1,39 @@
+# ~/.tmuxinator/cgjung.yml
+
+name: cgjung
+root: ~/code/cgjunghaus/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+windows:
+  - django cms:
+      layout: 219c,318x88,0,0[318x64,0,0,13,318x23,0,65{105x23,0,65,14,105x23,106,65,15,106x23,212,65,16}]
+      panes:
+        - vim:
+          - cd ~/code/cgjunghaus/
+          - workon cgjung
+          - vim
+        - docker:
+          - cd ~/code/cgjunghaus/
+          - workon cgjung
+          - divio project up
+        - gulp:
+          - cd ~/code/cgjunghaus/static-src/
+          - gulp
+        - term:
+          - cd ~/code/cgjunghaus/
+          - workon cgjung
+          - ls
