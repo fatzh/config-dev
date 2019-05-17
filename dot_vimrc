@@ -4,77 +4,80 @@
 set nocompatible
 
 " ------
-" VUNDLE
+" Plug
 " ------
-filetype off
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/bundle')
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
+" Install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 " plugins go here
 "
 " Ctrl-P for fuzzy find in buffers and filesystem
-Plugin 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
+" PlugInstall and PlugUpdate will clone fzf in ~/.fzf and run the install script
+" Fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
+Plug 'junegunn/fzf.vim'
 " Easy navigation between vim and tmux panes
-Plugin 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'
 " colorscheme
-Plugin 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 " NERDTree for file exploring
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 " Airline
-Plugin 'bling/vim-airline'
+Plug 'bling/vim-airline'
 " and Airline themes
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline-themes'
 " Ack to grep files
-Plugin 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim'
 " Substitute smart
-Plugin 'tpope/vim-abolish'
+Plug 'tpope/vim-abolish'
 " code completion
-Plugin 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 " Git
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " Python mode
-Plugin 'klen/python-mode'
+Plug 'klen/python-mode'
 " syntax checking
-Plugin 'scrooloose/syntastic'
-Plugin 'mtscout6/syntastic-local-eslint.vim'
+Plug 'scrooloose/syntastic'
+Plug 'mtscout6/syntastic-local-eslint.vim'
 " surround
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 " comments
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 " snippets
-Plugin 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 " HTML + PHP indent
-Plugin 'captbaritone/better-indent-support-for-php-with-html'
+Plug 'captbaritone/better-indent-support-for-php-with-html'
 " Easy motion to move around
-Plugin 'Lokaltog/vim-easymotion'
+Plug 'Lokaltog/vim-easymotion'
 " handles auto cloing
-Plugin 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 " Mardown preview
-" Plugin 'JamshedVesuna/vim-markdown-preview'
-" Plugin 'vim-pandoc/vim-pandoc'
-" Plugin 'vim-pandoc/vim-pandoc-syntax' 
+" Plug 'JamshedVesuna/vim-markdown-preview'
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax' 
 " Fast Fold
-Plugin 'Konfekt/FastFold'
+Plug 'Konfekt/FastFold'
 " Fold python
-Plugin 'tmhedberg/SimpylFold'
-" Plugin to Qdo an action on all the quikfix list
-Plugin 'henrik/vim-qargs'
+Plug 'tmhedberg/SimpylFold'
+" Plug to Qdo an action on all the quikfix list
+Plug 'henrik/vim-qargs'
 " Syntax for API blueprint
-Plugin 'kylef/apiblueprint.vim'
+Plug 'kylef/apiblueprint.vim'
 " Syntax for typescript
-Plugin 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim'
 " Syntax for JSX
-Plugin 'pangloss/vim-javascript'
-Plugin 'maxmellon/vim-jsx-pretty'
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
 " Kotlin
-Plugin 'udalov/kotlin-vim'
+Plug 'udalov/kotlin-vim'
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on
+call plug#end()            " required
 
 " --------------
 " FILES LOCATION
@@ -264,20 +267,14 @@ let NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 
-" CtrlP
+" Fzf
 " -----
-let g:ctrlp_working_path_mode = 'ra'
-" hmm filtering bower and node dir doesn't seem to work, need to look into
-" that
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.hg$\|\.svn$|bower_components$\|node_modules$',
-  \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
-" no limit on the number of files
-let g:ctrlp_max_files=0
 
-
-" leader-p will search in buffers
-nnoremap <leader>p :CtrlPBuffer<CR>
+" Use ag to search, respects gitignore repo
+" Install ag package: https://github.com/ggreer/the_silver_searcher
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+" leader-p will search in files
+nnoremap <leader>p :Files<CR>
 
 " YouCompleteMe
 " -------------

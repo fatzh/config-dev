@@ -1,1 +1,3 @@
 dot_vifm/vifminfo
+dot_vim/swap/*
+dot_vim/autoload/
