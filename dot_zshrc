@@ -72,14 +72,22 @@ alias mmv='noglob zmv -W'
 # source tmuxinator completion
 source /usr/share/zsh/vendor_completions/_tmuxinator
 
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh"  ] && \. "$NVM_DIR/nvm.sh"
+
 # if logging in form SSH, start tmux
 # if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ]; then
 #     tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
 # fi
 
-cd $HOME
+# cd $HOME
 
 # load aliases
 if [[ -s "$HOME/.aliases" ]]; then
   source $HOME/.aliases
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/fatz/.sdkman"
+[[ -s "/home/fatz/.sdkman/bin/sdkman-init.sh" ]] && source "/home/fatz/.sdkman/bin/sdkman-init.sh"

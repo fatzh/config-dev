@@ -59,6 +59,8 @@ Plugin 'jiangmiao/auto-pairs'
 " Plugin 'vim-pandoc/vim-pandoc-syntax' 
 " Fast Fold
 Plugin 'Konfekt/FastFold'
+" Fold python
+Plugin 'tmhedberg/SimpylFold'
 " Plugin to Qdo an action on all the quikfix list
 Plugin 'henrik/vim-qargs'
 " Syntax for API blueprint
@@ -68,6 +70,8 @@ Plugin 'leafgarland/typescript-vim'
 " Syntax for JSX
 Plugin 'pangloss/vim-javascript'
 Plugin 'maxmellon/vim-jsx-pretty'
+" Kotlin
+Plugin 'udalov/kotlin-vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on
@@ -113,7 +117,9 @@ set backspace=indent,eol,start
 set nowrap
 
 " Change working directory to the current file location
-autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+" autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+" Actually no, stay in root
+set noautochdir
 
 " more history
 set history=1000
@@ -307,7 +313,7 @@ let g:ycm_semantic_triggers =  {
   \ }
 
 " force system python (also in virtualenvs)
-let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
 
 " I actually want to use some snippet in markdown documents
 let g:ycm_filetype_blacklist = {}
@@ -352,6 +358,7 @@ let g:BASH_Ctrl_j = 'off'
 
 " 80 char width is not enforced for python...
 let g:syntastic_python_flake8_args='--ignore=E501,E225'
+let g:syntastic_python_checkers = ['flake8']
 " eslint if available for JS projects
 let g:syntastic_javascript_checkers=['eslint']
 
@@ -373,7 +380,7 @@ let g:syntastic_check_on_wq = 1
 let g:pymode_rope = 0
 let g:pymode_lint = 0
 
-" Python doc by pressing D
+" Python doc by pressing K
 let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
 
@@ -391,7 +398,10 @@ let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
 " Don't autofold code
-let g:pymode_folding = 1
+let g:pymode_folding = 0
+
+" python 3
+let g:pymode_python = 'python3'
 
 " Markdown/Pandoc
 " ----------------
