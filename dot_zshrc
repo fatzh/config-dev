@@ -69,9 +69,6 @@ export DYLD_FORCE_FLAT_NAMESPACE=1
 autoload -U zmv
 alias mmv='noglob zmv -W'
 
-# source tmuxinator completion
-source /usr/share/zsh/vendor_completions/_tmuxinator
-
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh"  ] && \. "$NVM_DIR/nvm.sh"

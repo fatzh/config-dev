@@ -41,7 +41,7 @@ Plug 'Valloric/YouCompleteMe'
 " Git
 Plug 'tpope/vim-fugitive'
 " Python mode
-Plug 'klen/python-mode'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'  }
 " syntax checking
 Plug 'scrooloose/syntastic'
 Plug 'mtscout6/syntastic-local-eslint.vim'
