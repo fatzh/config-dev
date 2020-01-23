@@ -16,8 +16,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 " plugins go here
 "
-" Ctrl-P for fuzzy find in buffers and filesystem
-" Plug 'kien/ctrlp.vim'
 " PlugInstall and PlugUpdate will clone fzf in ~/.fzf and run the install script
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
@@ -44,7 +42,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'  }
 " syntax checking
 Plug 'scrooloose/syntastic'
-Plug 'mtscout6/syntastic-local-eslint.vim'
+" Plug 'mtscout6/syntastic-local-eslint.vim'
 " surround
 Plug 'tpope/vim-surround'
 " comments
@@ -52,9 +50,9 @@ Plug 'scrooloose/nerdcommenter'
 " snippets
 Plug 'SirVer/ultisnips'
 " HTML + PHP indent
-Plug 'captbaritone/better-indent-support-for-php-with-html'
+" Plug 'captbaritone/better-indent-support-for-php-with-html'
 " Easy motion to move around
-Plug 'Lokaltog/vim-easymotion'
+" Plug 'Lokaltog/vim-easymotion'
 " handles auto cloing
 Plug 'jiangmiao/auto-pairs'
 " Mardown preview
@@ -68,14 +66,14 @@ Plug 'tmhedberg/SimpylFold'
 " Plug to Qdo an action on all the quikfix list
 Plug 'henrik/vim-qargs'
 " Syntax for API blueprint
-Plug 'kylef/apiblueprint.vim'
+" Plug 'kylef/apiblueprint.vim'
 " Syntax for typescript
-Plug 'leafgarland/typescript-vim'
+" Plug 'leafgarland/typescript-vim'
 " Syntax for JSX
-Plug 'pangloss/vim-javascript'
-Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'pangloss/vim-javascript'
+" Plug 'maxmellon/vim-jsx-pretty'
 " Kotlin
-Plug 'udalov/kotlin-vim'
+" Plug 'udalov/kotlin-vim'
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
@@ -202,6 +200,8 @@ map <leader>v :so $MYVIMRC<CR>
 " digraphs conflicts in mutt...
 imap <leader>k <C-k>
 
+" pretty json
+cnoremap json %!python -m json.tool
 " -----------
 " COLORSCHEME
 " -----------
@@ -367,7 +367,7 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
+let g:syntastic_check_on_wq = 0
 
 " Python mode
 " -----------
@@ -408,3 +408,11 @@ map <leader>m :!pandoc % <bar> bcat <CR>
 
 " Force 80 chars width
 autocmd FileType markdown setlocal tw=80 
+
+" Custom commands
+" -------------
+"  Set propertyIndex correctly within the visual selection
+function! SetPropertyIndex() range
+  let i= 1 | '<,'> g/propertyIndex \zs\d./s//\=i/ | let i = i+1
+endfunction
+vmap <leader>i :call SetPropertyIndex()<CR>

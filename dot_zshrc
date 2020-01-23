@@ -37,7 +37,7 @@ fi
 
 # custom PATH 
 # adding path for local stuff
-export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/bin:/snap/bin"
 # adding path for composer stuff
 if type "brew" > /dev/null; then
   export PATH="$(brew --prefix homebrew/php/php55)/bin:$HOME/.composer/vendor/bin:$PATH"
