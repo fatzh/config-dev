@@ -85,6 +85,8 @@ if [[ -s "$HOME/.aliases" ]]; then
   source $HOME/.aliases
 fi
 
+alias bip="mpg123 ~/horn.mp3"
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/fatz/.sdkman"
 [[ -s "/home/fatz/.sdkman/bin/sdkman-init.sh" ]] && source "/home/fatz/.sdkman/bin/sdkman-init.sh"

@@ -55,6 +55,8 @@ Plug 'SirVer/ultisnips'
 " Plug 'Lokaltog/vim-easymotion'
 " handles auto cloing
 Plug 'jiangmiao/auto-pairs'
+" RDF
+Plug 'niklasl/vim-rdf'
 " Mardown preview
 " Plug 'JamshedVesuna/vim-markdown-preview'
 " Plug 'vim-pandoc/vim-pandoc'
@@ -413,6 +415,6 @@ autocmd FileType markdown setlocal tw=80
 " -------------
 "  Set propertyIndex correctly within the visual selection
 function! SetPropertyIndex() range
-  let i= 1 | '<,'> g/propertyIndex \zs\d./s//\=i/ | let i = i+1
+  let i= 1 | '<,'> g/propertyIndex \zs\d\+/s//\=i/ | let i = i+1
 endfunction
 vmap <leader>i :call SetPropertyIndex()<CR>
