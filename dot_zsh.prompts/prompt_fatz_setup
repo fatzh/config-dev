@@ -57,7 +57,7 @@ function prompt_fatz_setup {
   #PROMPT="%(?.${success_color}.${failure_color})${SSH_TTY:+[%n@%m]}%B%${max_path_chars}<...<"'${vcs_info_msg_0_%%.}'"%<<%(!.${root_char}.${user_char})%b%f "
   # somehow on debian the max_path_chars is not working...
   PROMPT="%(?.${success_color}.${failure_color})${SSH_TTY:+[%n@%m]}%B%2~${vcs_info_msg_0_%%.}%<<%(!.${root_char}.${user_char})%b%f "
-  source .zsh.prompts/kubectl.zsh
+  source ~/.zsh.prompts/kubectl.zsh
   RPROMPT='${vcs_info_color}${vcs_info_msg_1_} %{$fg[blue]%}k8s: ${ZSH_KUBECTL_CONTEXT}/%{$fg[red]%}${ZSH_KUBECTL_NAMESPACE} %{$reset_color%}'
 }
 
