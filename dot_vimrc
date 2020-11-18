@@ -207,6 +207,13 @@ imap <leader>k <C-k>
 
 " pretty json
 cnoremap json %!python -m json.tool
+
+" navigate quikfix window lines
+map <leader>l :cnext<CR>
+" unfold when jumping
+set foldopen+=jump
+set foldopen+=quickfix
+
 " -----------
 " COLORSCHEME
 " -----------
@@ -413,6 +420,9 @@ map <leader>m :!pandoc % <bar> bcat <CR>
 
 " Force 80 chars width
 autocmd FileType markdown setlocal tw=80 
+" Clipboard
+" ---------
+set clipboard=unnamedplus
 
 " Custom commands
 " -------------

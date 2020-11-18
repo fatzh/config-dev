@@ -37,7 +37,7 @@ fi
 
 # custom PATH 
 # adding path for local stuff
-export PATH="$PATH:$HOME/bin:/snap/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.local/bin:/snap/bin"
 # adding path for composer stuff
 if type "brew" > /dev/null; then
   export PATH="$(brew --prefix homebrew/php/php55)/bin:$HOME/.composer/vendor/bin:$PATH"
@@ -92,3 +92,7 @@ export SDKMAN_DIR="/home/fatz/.sdkman"
 [[ -s "/home/fatz/.sdkman/bin/sdkman-init.sh" ]] && source "/home/fatz/.sdkman/bin/sdkman-init.sh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ -z "$TMUX" ]; then
+    tmux attach -t default || tmux new -s default
+fi
