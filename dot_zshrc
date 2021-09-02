@@ -18,6 +18,9 @@ export EDITOR='vim'
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
 
+# auto complete kubectl
+source <(kubectl completion zsh)
+
 # Initialize virtual env wrapper
 if [[ -s "/usr/local/bin/virtualenvwrapper.sh" ]]; then
   export WORKON_HOME=~/Envs
@@ -94,5 +97,5 @@ export SDKMAN_DIR="/home/fatz/.sdkman"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -z "$TMUX" ]; then
-    tmux attach -t default || tmux new -s default
+  tmux attach -t default || tmux new -s default
 fi

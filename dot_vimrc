@@ -76,6 +76,8 @@ Plug 'henrik/vim-qargs'
 " Plug 'maxmellon/vim-jsx-pretty'
 " Kotlin
 " Plug 'udalov/kotlin-vim'
+" Clipboard
+Plug 'ojroques/vim-oscyank'
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
@@ -158,6 +160,8 @@ autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 " for email, wrap, spellcheck
 autocmd FileType mail setlocal textwidth=80 wrap spell
 
+" for turtle: 4 spaces, noexpandtab
+autocmd FileType turtle setlocal shiftwidth=8 tabstop=8 softtabstop=8 noexpandtab
 " -----------------
 " Auto reload vimrc
 "------------------
@@ -183,6 +187,8 @@ noremap \ ,
 
 " paste mode
 set pastetoggle=<leader>y
+" and copy to clipboard
+vnoremap <leader>c :OSCYank<CR>
 
 " encryption blowfish
 set cm=blowfish2
