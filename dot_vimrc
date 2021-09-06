@@ -95,6 +95,9 @@ set directory=$HOME/.vim/swap//
 " syntax highlighting
 syntax on
 
+" load filetype lugins
+filetype plugin indent on
+
 " highlight search results
 set hlsearch
 
@@ -106,7 +109,7 @@ set ignorecase
 set smartcase
 
 " indent same level as previous line
-set autoindent
+" set autoindent
 
 " line numbering
 set relativenumber
@@ -160,8 +163,8 @@ autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 " for email, wrap, spellcheck
 autocmd FileType mail setlocal textwidth=80 wrap spell
 
-" for turtle: 4 spaces, noexpandtab
-autocmd FileType turtle setlocal shiftwidth=8 tabstop=8 softtabstop=8 noexpandtab
+" for turtle: 4 spaces
+autocmd FileType turtle setlocal shiftwidth=8 tabstop=8 softtabstop=8 expandtab
 " -----------------
 " Auto reload vimrc
 "------------------
