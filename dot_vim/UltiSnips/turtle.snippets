@@ -1,0 +1,17 @@
+snippet threemsproperty
+$1 a threems:Property ;
+		rdfs:label "$2";
+		dc:description "$3";
+		threems:supportedWidget $4;
+		threems:valueType ${5:xsd:string}.
+endsnippet
+
+snippet threemsresource
+$1 a threems:Resource ;
+		rdfs:label"$2";
+		threems:relatesTo $3;
+		threems:supportedIndex $4;
+		threems:supportedField [
+
+		].
+endsnippet

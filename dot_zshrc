@@ -13,14 +13,7 @@ fi
 # Customize to your needs...
 
 export EDITOR='vim'
-
-# auto complete stuff
-fpath=(~/.zsh/completion $fpath)
-autoload -Uz compinit && compinit -i
-
-# auto complete kubectl
-source <(kubectl completion zsh)
-
+#
 # Initialize virtual env wrapper
 if [[ -s "/usr/local/bin/virtualenvwrapper.sh" ]]; then
   export WORKON_HOME=~/Envs
@@ -40,14 +33,18 @@ fi
 
 # custom PATH 
 # adding path for local stuff
-export PATH="$PATH:$HOME/bin:$HOME/.local/bin:/snap/bin"
+export PATH="$PATH:/usr/local/bin:$HOME/bin:$HOME/.local/bin:/snap/bin"
 # adding path for composer stuff
 if type "brew" > /dev/null; then
   export PATH="$(brew --prefix homebrew/php/php55)/bin:$HOME/.composer/vendor/bin:$PATH"
 fi
+# vim iced plugin
+export PATH=$PATH:~/.vim/bundle/vim-iced/bin
 
-# adding path for homebrew sbin stuff
-export PATH="/usr/local/sbin:$PATH"
+# go
+export GOPATH=$HOME/go
+# adding path for homebrew sbin and go stuff
+export PATH="/usr/local/sbin:/usr/local/go/bin:$GOPATH/bin:$PATH"
 
 # so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
 stty -ixon
@@ -78,8 +75,19 @@ export NVM_DIR="$HOME/.nvm"
 
 # if logging in form SSH, start tmux
 # if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ]; then
-#     tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
+     # tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
 # fi
+
+# auto complete stuff
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit && compinit -i
+
+# auto complete kubectl
+source <(kubectl completion zsh)
+
+# auto complete doctl
+source <(doctl completion zsh)
+
 
 # cd $HOME
 
@@ -87,6 +95,10 @@ export NVM_DIR="$HOME/.nvm"
 if [[ -s "$HOME/.aliases" ]]; then
   source $HOME/.aliases
 fi
+
+# JAVA
+# export JAVA_HOME=/usr/lib/jvm/jdk-17/
+# export PATH=$PATH:$JAVA_HOME/bin
 
 alias bip="mpg123 ~/horn.mp3"
 

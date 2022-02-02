@@ -18,66 +18,75 @@ endif
 "
 " PlugInstall and PlugUpdate will clone fzf in ~/.fzf and run the install script
 " Fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }  <- replaced by vim-clap
+" Plug 'junegunn/fzf.vim' <- replace by vim-clap
+Plug 'liuchengxu/vim-clap'
+
+" Build the extra binary if cargo exists on your system.
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+
+" The bang version will try to download the prebuilt binary if cargo does not exist.
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+
+" :Clap install-binary[!] will always try to compile the binary locally,
+" if you do care about the disk used for the compilation, try using the force download way,
+" which will download the prebuilt binary even you have installed cargo.
+Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
+
+" `:Clap install-binary[!]` will run using the terminal feature which is inherently async.
+" If you don't want that and hope to run the hook synchorously:
+Plug 'liuchengxu/vim-clap', { 'do': has('win32') ? 'cargo build --release' : 'make' }
+
 " Easy navigation between vim and tmux panes
 Plug 'christoomey/vim-tmux-navigator'
-" colorscheme
-Plug 'altercation/vim-colors-solarized'
+" colorscheme vim
+Plug 'morhetz/gruvbox'
+" color scheme airline
+Plug 'Neur1n/solarized_flood'
 " NERDTree for file exploring
 Plug 'scrooloose/nerdtree'
 " Airline
 Plug 'bling/vim-airline'
-" and Airline themes
-Plug 'vim-airline/vim-airline-themes'
-" Ack to grep files
-Plug 'mileszs/ack.vim'
 " Substitute smart
 Plug 'tpope/vim-abolish'
-" code completion
-Plug 'Valloric/YouCompleteMe'
+" code completion (replaced by CoC)
+" Plug 'Valloric/YouCompleteMe'
+" Clojure REPL
+Plug 'guns/vim-sexp',    {'for': 'clojure'}
+Plug 'tpope/vim-sexp-mappings-for-regular-people', {'for': 'clojure'}
+Plug 'liquidz/vim-iced', {'branch': 'main','for': 'clojure'}
+Plug 'liquidz/vim-iced-coc-source', {'for': 'clojure'}
+" Clojure parenthesis
+Plug 'luochen1990/rainbow'
+" Cljure folding and stuff
+" Plug 'clojure-vim/clojure.vim', {'for': 'clojure'}
+" Clojure static (I don't think I need that actually...)
+" Plug 'guns/vim-clojure-static', {'for': 'clojure'}
 " Git
 Plug 'tpope/vim-fugitive'
-" Python mode
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'  }
+" Python mode (still needed ?)
+" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'  }
 " syntax checking
-Plug 'scrooloose/syntastic'
-" Plug 'mtscout6/syntastic-local-eslint.vim'
+" Plug 'scrooloose/syntastic'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " surround
-Plug 'tpope/vim-surround'
+ Plug 'tpope/vim-surround'
 " comments
-Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 " snippets
 Plug 'SirVer/ultisnips'
-" HTML + PHP indent
-" Plug 'captbaritone/better-indent-support-for-php-with-html'
-" Easy motion to move around
-" Plug 'Lokaltog/vim-easymotion'
-" handles auto cloing
+" handles closing symbols () {} etc..
 Plug 'jiangmiao/auto-pairs'
 " RDF
 Plug 'niklasl/vim-rdf'
-" Mardown preview
-" Plug 'JamshedVesuna/vim-markdown-preview'
-" Plug 'vim-pandoc/vim-pandoc'
-" Plug 'vim-pandoc/vim-pandoc-syntax' 
 " Fast Fold
 Plug 'Konfekt/FastFold'
 " Fold python
 Plug 'tmhedberg/SimpylFold'
 " Plug to Qdo an action on all the quikfix list
-Plug 'henrik/vim-qargs'
-" Syntax for API blueprint
-" Plug 'kylef/apiblueprint.vim'
-" Syntax for typescript
-" Plug 'leafgarland/typescript-vim'
-" Syntax for JSX
-" Plug 'pangloss/vim-javascript'
-" Plug 'maxmellon/vim-jsx-pretty'
-" Kotlin
-" Plug 'udalov/kotlin-vim'
+" Plug 'henrik/vim-qargs'
 " Clipboard
-Plug 'ojroques/vim-oscyank'
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
@@ -86,7 +95,7 @@ call plug#end()            " required
 " --------------
 
 " swap files
-set directory=$HOME/.vim/swap//
+set directory=$HOME/.vim/swap/
 
 " ------------------
 " BASIC CONFIGURATION
@@ -109,7 +118,7 @@ set ignorecase
 set smartcase
 
 " indent same level as previous line
-" set autoindent
+set autoindent
 
 " line numbering
 set relativenumber
@@ -132,11 +141,39 @@ set noautochdir
 " more history
 set history=1000
 
-" keep a few lines around when scrolling
+" keep a few lines around when scrolling, remember zt zz zb are handy
 set scrolloff=5
 
 " encoding
 set encoding=utf-8
+scriptencoding utf-8
+
+" usefull for CoC
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
 " safe write disabled for javascript, for hot reloading
 autocmd FileType javascript setlocal backupcopy=yes
@@ -163,15 +200,8 @@ autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 " for email, wrap, spellcheck
 autocmd FileType mail setlocal textwidth=80 wrap spell
 
-" for turtle: 4 spaces
-autocmd FileType turtle setlocal shiftwidth=8 tabstop=8 softtabstop=8 expandtab
-" -----------------
-" Auto reload vimrc
-"------------------
-augroup myvimrc
-    au!
-    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-augroup END
+" for turtle: 4 spaces and set foldmethod to default indent, works well enough
+autocmd FileType turtle setlocal shiftwidth=8 tabstop=8 softtabstop=8 foldmethod=indent
 
 " --------
 " MAPPINGS
@@ -188,28 +218,36 @@ let mapleader = ','
 " don't throw away backward search
 noremap \ ,
 
-" paste mode
+" paste mode, small y
 set pastetoggle=<leader>y
-" and copy to clipboard
-vnoremap <leader>c :OSCYank<CR>
+" and yank to clipboard, big Y
+vnoremap <leader>Y :OSCYank<CR>
+
+if &diff
+    set cursorline
+    map ] ]c
+    map [ [c
+endif
 
 " encryption blowfish
 set cm=blowfish2
 
 " clear search highlighting
-nmap <silent> <leader>/ :nohl<CR>
+nmap <silent> <leader>h :nohl<CR>
 
 " sudo to write file if required
 cmap w!! w !sudo tee % >/dev/null
 
 " adjust panes to be the same size
-map <leader>= <C-w>=
+noremap <leader>= <C-w>=
+" zoom one pane
+noremap <leader>+ <C-w>_\|<C-w>\|
 
 " redraw window
 map <leader>r :redraw!<CR>
 
-" reload vimrc
-map <leader>v :so $MYVIMRC<CR>
+" reload vimrc, and reset airline...
+map <leader>v :so $MYVIMRC<CR>:AirlineRefresh<CR>
 
 " digraphs conflicts in mutt...
 imap <leader>k <C-k>
@@ -230,8 +268,27 @@ set foldopen+=quickfix
 " force 256 colors
 set t_Co=256
 
-set background=light
-colorscheme solarized
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+
+
+set background=dark
+" colorscheme solarized
+let g:gruvbox_italic=1
+colorscheme gruvbox
 
 " custom split bar
 set fillchars+=vert:\ 
@@ -245,33 +302,62 @@ hi VertSplit ctermbg=bg
 " Fugitive
 " --------
 
-" git staus and move down to the modified/added files
-noremap <leader>gs :Gstatus<CR>5j
+" git status and move down to the modified/added files
+noremap <leader>gs :Git<CR>5j
 " git commit, enter in insert mode
-noremap <leader>gc :Gcommit<CR>i
+noremap <leader>gc :Git commit<CR>i
 " git push
-noremap <leader>gp :Gpush<CR>
+noremap <leader>gp :Git push<CR>
 
 " Airline
 " -------
 
 " show airline all the time
-set laststatus=2
+" set laststatus=2
 " add support for powerline font
 let g:airline_powerline_fonts = 1
-" light theme
-let g:airline_theme='solarized'
+" theme
+let g:airline_theme='solarized_flood'
+let g:airline_exclude_preview = 0
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+
 
 " NERDTree
 " --------
-
+"
 " toggle nerdtree
 map <C-e> :NERDTreeToggle<CR>
 
 " show current file in NERDTree
-map <leader>e :NERDTreeFind<CR>
+map <leader>f :NERDTreeFind<CR>
 
-" map "open in split" to be like Ctrl-p
+" map "open in split" to be (s)plit / (v)ertical split
 let NERDTreeMapOpenSplit = 's'
 let NERDTreeMapOpenVSplit = 'v'
 
@@ -288,59 +374,70 @@ let NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 
-" Fzf
+" Clap
 " -----
-
 " Use ag to search, respects gitignore repo
 " Install ag package: https://github.com/ggreer/the_silver_searcher
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-" leader-p will search in files
-nnoremap <leader>p :Files<CR>
+" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+nnoremap <leader>pf :Clap files<CR>
+nnoremap <leader>pg :Clap grep2<CR>
+nnoremap <leader>pb :Clap buffers<CR>
+" theme
+let g:clap_theme = 'material_design_dark'
+let g:clap_layout={'relative': 'editor'}
 
-" YouCompleteMe
-" -------------
+" Coc completion/syntax
+" ------
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" jump to definition
-nnoremap <leader>j :YcmCompleter GoToDefinitionElseDeclaration<CR>
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" close preview window when choice selected and leave insert mode
-let g:ycm_add_preview_to_completeopt=1
-let g:ycm_autoclose_preview_window_after_completion=0
-let g:ycm_autoclose_preview_window_after_insertion=1
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" recommanded Django settings
-let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
-let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
-let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
-let g:ycm_complete_in_comments = 1 " Completion in comments
-let g:ycm_complete_in_strings = 1 " Completion in string
-let g:ycm_min_num_of_chars_for_completion = 1 " to complete short snippets
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
-let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.'],
-  \   'objc' : ['->', '.'],
-  \   'ocaml' : ['.', '#'],
-  \   'cpp,objcpp' : ['->', '.', '::'],
-  \   'perl' : ['->'],
-  \   'php' : ['->', '::'],
-  \   'cs,java,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-  \   'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
-  \   'ruby' : ['.', '::'],
-  \   'lua' : ['.', ':'],
-  \   'erlang' : [':'],
-  \ }
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" force system python (also in virtualenvs)
-let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
-" I actually want to use some snippet in markdown documents
-let g:ycm_filetype_blacklist = {}
+" detect project root
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
 
 " UtliSnips
 " ---------
 
-" tab conflicts with youcompleteme
-let g:UltiSnipsExpandTrigger = "<tab>"
+" tab conflicts with coc
+let g:UltiSnipsExpandTrigger = "<c-s>"
 " let use the enter key when snippet in youcompleteme list
 let g:ulti_expand_or_jump_res = 0
 function! ExpandSnippetOrCarriageReturn()
@@ -358,12 +455,25 @@ nnoremap <leader>s :UltiSnipsEdit<CR>
 " edit snippets for current filetype, in an horizontal split
 let g:UltiSnipsEditSplit = "horizontal"
 
-" Ack
-" ----
+" Rainbow parenthesis
+" --------------
+" yeah, always
+let g:rainbow_active = 1
 
-" this is an alias to perform search in whole project
-" using the Gcd command (fugitive)
-cnoreabbrev ag Gcd <bar> Ack!
+" Clojure ICED
+" ---
+let g:iced_enable_default_key_mappings = v:true
+" kondo analysis (will automatically install)
+let g:iced_enable_clj_kondo_local_analysis = v:true
+let g:iced_enable_clj_kondo_analysis = v:true
+
+let g:iced#nrepl#path_translation = {
+      \ '/tmp': expand('<sfile>:p:h'),
+      \ '/root': $HOME,
+      \ }
+
+" Clojure
+" let g:clojure_fold= 1
 
 " Tmux-navigation
 " ---------------
@@ -371,64 +481,6 @@ cnoreabbrev ag Gcd <bar> Ack!
 " requires to kill the bash ctrl-j handler
 let g:BASH_Ctrl_j = 'off'
 
-" Syntastic
-" --------
-
-" 80 char width is not enforced for python...
-let g:syntastic_python_flake8_args='--ignore=E501,E225,W503'
-let g:syntastic_python_checkers = ['flake8']
-" eslint if available for JS projects
-let g:syntastic_javascript_checkers=['eslint']
-
-" global configuration (recommended default...)
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" Python mode
-" -----------
-
-" we don't want it to do any linting or completion, 
-" Syntastic and YouCompleteMe are taking care of that already
-let g:pymode_rope = 0
-let g:pymode_lint = 0
-
-" Python doc by pressing K
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
-
-" Support virtualenv
-let g:pymode_virtualenv = 1
-
-" Enable breakpoints plugin
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_key = '<leader>b'
-
-" syntax highlighting
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-
-" Don't autofold code
-let g:pymode_folding = 0
-
-" python 3
-let g:pymode_python = 'python3'
-
-" Markdown/Pandoc
-" ----------------
-
-" Remap preview to leader-m
-map <leader>m :!pandoc % <bar> bcat <CR>
-
-" Force 80 chars width
-autocmd FileType markdown setlocal tw=80 
 " Clipboard
 " ---------
 set clipboard=unnamedplus

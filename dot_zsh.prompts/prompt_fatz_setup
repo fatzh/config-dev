@@ -42,7 +42,7 @@ function prompt_fatz_setup {
   local root_char='❯❯❯'
   local success_color='%F{2}'
   local failure_color='%F{1}'
-  local vcs_info_color='%F{242}'
+  local vcs_info_color='%F{15}'
 
   # Set vcs_info parameters.
   zstyle ':vcs_info:*' enable bzr git hg svn
@@ -59,7 +59,7 @@ function prompt_fatz_setup {
   PROMPT="%(?.${success_color}.${failure_color})${SSH_TTY:+[%n@%m]}%B%2~${vcs_info_msg_0_%%.}%<<%(!.${root_char}.${user_char})%b%f "
   source ~/.zsh.prompts/kubectl.zsh
   source ~/.zsh.prompts/time.zsh
-  RPROMPT='${vcs_info_color}${vcs_info_msg_1_} %{$fg[blue]%}'$'\U2388 ''${ZSH_KUBECTL_CONTEXT}/%{$fg[red]%}${ZSH_KUBECTL_NAMESPACE} %{$fg[yellow]%}(${ZSH_EXEC_TIME}s)%{$reset_color%}'
+  RPROMPT='${vcs_info_color}${vcs_info_msg_1_} %{$fg[blue]%}'$'\U2388 ''${ZSH_KUBECTL_CONTEXT}/%{%F{7}%}${ZSH_KUBECTL_NAMESPACE} %{%F{13}%}(${ZSH_EXEC_TIME}s)%{$reset_color%}'
 }
 
 prompt_fatz_setup "$@"
