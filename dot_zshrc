@@ -45,6 +45,8 @@ export PATH="$PATH:$HOME/bin:$HOME/.local/bin:/snap/bin"
 if type "brew" > /dev/null; then
   export PATH="$(brew --prefix homebrew/php/php55)/bin:$HOME/.composer/vendor/bin:$PATH"
 fi
+# adding path for krew stuff
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # adding path for homebrew sbin stuff
 export PATH="/usr/local/sbin:$PATH"
@@ -72,6 +74,11 @@ export DYLD_FORCE_FLAT_NAMESPACE=1
 autoload -U zmv
 alias mmv='noglob zmv -W'
 
+# k8s aliases
+alias k=kubectl
+alias kns=kubens
+alias kx=kubectx
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh"  ] && \. "$NVM_DIR/nvm.sh"
@@ -96,6 +103,18 @@ export SDKMAN_DIR="/home/fatz/.sdkman"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# check certs...
+if ! { [ "$TERM" = "tmux" ]; } then
+  $HOME/bin/check-cert.sh
+fi
+
 if [ -z "$TMUX" ]; then
   tmux attach -t default || tmux new -s default
 fi
+
+autoload edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"

@@ -16,26 +16,42 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 " plugins go here
 "
-" PlugInstall and PlugUpdate will clone fzf in ~/.fzf and run the install script
-" Fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
-Plug 'junegunn/fzf.vim'
+
+Plug 'liuchengxu/vim-clap'
+" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!'  }
+" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+" Build the extra binary if cargo exists on your system.
+"Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+
+" The bang version will try to download the prebuilt binary if cargo does not exist.
+"Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+
+" :Clap install-binary[!] will always try to compile the binary locally,
+" if you do care about the disk used for the compilation, try using the force download way,
+" which will download the prebuilt binary even you have installed cargo.
+"
+" Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
+
+" `:Clap install-binary[!]` will run using the terminal feature which is inherently async.
+" If you don't want that and hope to run the hook synchorously:
+"Plug 'liuchengxu/vim-clap', { 'do': has('win32') ? 'cargo build --release' : 'make' }
+
 " Easy navigation between vim and tmux panes
 Plug 'christoomey/vim-tmux-navigator'
 " colorscheme
-Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 " NERDTree for file exploring
 Plug 'scrooloose/nerdtree'
 " Airline
 Plug 'bling/vim-airline'
 " and Airline themes
-Plug 'vim-airline/vim-airline-themes'
-" Ack to grep files
-Plug 'mileszs/ack.vim'
+Plug 'Neur1n/solarized_flood'
 " Substitute smart
 Plug 'tpope/vim-abolish'
 " code completion
 Plug 'Valloric/YouCompleteMe'
+" color parenthesis
+Plug 'luochen1990/rainbow'
 " Git
 Plug 'tpope/vim-fugitive'
 " Python mode
@@ -46,7 +62,7 @@ Plug 'scrooloose/syntastic'
 " surround
 Plug 'tpope/vim-surround'
 " comments
-Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 " snippets
 Plug 'SirVer/ultisnips'
 " HTML + PHP indent
@@ -66,7 +82,7 @@ Plug 'Konfekt/FastFold'
 " Fold python
 Plug 'tmhedberg/SimpylFold'
 " Plug to Qdo an action on all the quikfix list
-Plug 'henrik/vim-qargs'
+" Plug 'henrik/vim-qargs'
 " Syntax for API blueprint
 " Plug 'kylef/apiblueprint.vim'
 " Syntax for typescript
@@ -79,6 +95,8 @@ Plug 'henrik/vim-qargs'
 " Clipboard
 Plug 'ojroques/vim-oscyank'
 " All of your Plugins must be added before the following line
+" marks ?
+" Plug 'kshenoy/vim-signature'
 call plug#end()            " required
 
 " --------------
@@ -86,7 +104,7 @@ call plug#end()            " required
 " --------------
 
 " swap files
-set directory=$HOME/.vim/swap//
+set directory=$HOME/.vim/swap/
 
 " ------------------
 " BASIC CONFIGURATION
@@ -94,6 +112,10 @@ set directory=$HOME/.vim/swap//
 
 " syntax highlighting
 syntax on
+
+" cursor too thin in insert mode... see
+" https://github.com/neovim/neovim/wiki/FAQ#how-to-change-cursor-shape-in-the-terminal
+set guicursor=
 
 " load filetype lugins
 filetype plugin indent on
@@ -137,10 +159,13 @@ set scrolloff=5
 
 " encoding
 set encoding=utf-8
+scriptencoding utf-8
 
 " safe write disabled for javascript, for hot reloading
 autocmd FileType javascript setlocal backupcopy=yes
 
+" don't show the 80 column gutter
+au BufEnter *.* :set colorcolumn=
 " ------
 " INDENT
 " ------
@@ -164,14 +189,7 @@ autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType mail setlocal textwidth=80 wrap spell
 
 " for turtle: 4 spaces
-autocmd FileType turtle setlocal shiftwidth=8 tabstop=8 softtabstop=8 expandtab
-" -----------------
-" Auto reload vimrc
-"------------------
-augroup myvimrc
-    au!
-    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-augroup END
+" autocmd FileType turtle setlocal shiftwidth=8 tabstop=8 softtabstop=8 expandtab
 
 " --------
 " MAPPINGS
@@ -191,37 +209,45 @@ noremap \ ,
 " paste mode
 set pastetoggle=<leader>y
 " and copy to clipboard
-vnoremap <leader>c :OSCYank<CR>
+vnoremap <leader>Y :OSCYankVisual<CR>
 
 " encryption blowfish
-set cm=blowfish2
+if !has('nvim')
+  set cm=blowfish2
+endif
 
 " clear search highlighting
-nmap <silent> <leader>/ :nohl<CR>
+nmap <silent> <leader>h :nohl<CR>
 
 " sudo to write file if required
 cmap w!! w !sudo tee % >/dev/null
 
 " adjust panes to be the same size
 map <leader>= <C-w>=
+" zoom one pane
+noremap <leader>+ <C-w>_\|<C-w>\|
 
 " redraw window
 map <leader>r :redraw!<CR>
 
 " reload vimrc
-map <leader>v :so $MYVIMRC<CR>
+map <leader>v :so $MYVIMRC<CR>:AirlineRefresh<CR>
 
 " digraphs conflicts in mutt...
 imap <leader>k <C-k>
 
 " pretty json
-cnoremap json %!python -m json.tool
+" cnoremap json %!python -m json.tool
 
 " navigate quikfix window lines
 map <leader>l :cnext<CR>
 " unfold when jumping
 set foldopen+=jump
 set foldopen+=quickfix
+
+" python comments
+vnoremap <silent> # :s/^/#/<cr>:noh<cr>
+vnoremap <silent> -# :s/^#//<cr>:noh<cr>
 
 " -----------
 " COLORSCHEME
@@ -230,8 +256,9 @@ set foldopen+=quickfix
 " force 256 colors
 set t_Co=256
 
-set background=light
-colorscheme solarized
+set background=dark
+let g:gruvbox_italic=1
+colorscheme gruvbox
 
 " custom split bar
 set fillchars+=vert:\ 
@@ -244,23 +271,51 @@ hi VertSplit ctermbg=bg
 
 " Fugitive
 " --------
-
-" git staus and move down to the modified/added files
-noremap <leader>gs :Gstatus<CR>5j
+" git status and move down to the modified/added files
+noremap <leader>gs :Git<CR>5j
 " git commit, enter in insert mode
-noremap <leader>gc :Gcommit<CR>i
+noremap <leader>gc :Git commit<CR>i
 " git push
-noremap <leader>gp :Gpush<CR>
+noremap <leader>gp :Git push<CR>
 
 " Airline
 " -------
 
 " show airline all the time
-set laststatus=2
+" set laststatus=2
 " add support for powerline font
-let g:airline_powerline_fonts = 1
-" light theme
-let g:airline_theme='solarized'
+" this conflicts with clap-vim popup... ?
+" let g:airline_powerline_fonts = 1
+" theme
+let g:airline_theme='solarized_flood'
+let g:airline_exclude_preview = 0
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
 
 " NERDTree
 " --------
@@ -269,7 +324,7 @@ let g:airline_theme='solarized'
 map <C-e> :NERDTreeToggle<CR>
 
 " show current file in NERDTree
-map <leader>e :NERDTreeFind<CR>
+map <leader>f :NERDTreeFind<CR>
 
 " map "open in split" to be like Ctrl-p
 let NERDTreeMapOpenSplit = 's'
@@ -287,15 +342,18 @@ let NERDTreeQuitOnOpen=0
 let NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
+let g:NERDTreeWinSize=30
 
-" Fzf
+" Clap
 " -----
-
 " Use ag to search, respects gitignore repo
 " Install ag package: https://github.com/ggreer/the_silver_searcher
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-" leader-p will search in files
-nnoremap <leader>p :Files<CR>
+nnoremap <leader>pf :Clap files<CR>
+nnoremap <leader>pg :Clap grep<CR>
+nnoremap <leader>pb :Clap buffers<CR>
+" theme
+let g:clap_theme = 'solarized_dark'
+let g:clap_layout={'relative': 'editor'}
 
 " YouCompleteMe
 " -------------
@@ -358,12 +416,6 @@ nnoremap <leader>s :UltiSnipsEdit<CR>
 " edit snippets for current filetype, in an horizontal split
 let g:UltiSnipsEditSplit = "horizontal"
 
-" Ack
-" ----
-
-" this is an alias to perform search in whole project
-" using the Gcd command (fugitive)
-cnoreabbrev ag Gcd <bar> Ack!
 
 " Tmux-navigation
 " ---------------
@@ -375,10 +427,12 @@ let g:BASH_Ctrl_j = 'off'
 " --------
 
 " 80 char width is not enforced for python...
-let g:syntastic_python_flake8_args='--ignore=E501,E225,W503'
+let g:syntastic_python_flake8_args='--ignore=E501,E225,W503,C901'
 let g:syntastic_python_checkers = ['flake8']
 " eslint if available for JS projects
 let g:syntastic_javascript_checkers=['eslint']
+" turtle
+let g:syntastic_turtle_checkers=['rapper']
 
 " global configuration (recommended default...)
 set statusline+=%#warningmsg#
@@ -421,14 +475,6 @@ let g:pymode_folding = 0
 " python 3
 let g:pymode_python = 'python3'
 
-" Markdown/Pandoc
-" ----------------
-
-" Remap preview to leader-m
-map <leader>m :!pandoc % <bar> bcat <CR>
-
-" Force 80 chars width
-autocmd FileType markdown setlocal tw=80 
 " Clipboard
 " ---------
 set clipboard=unnamedplus
