@@ -97,6 +97,10 @@ Plug 'ojroques/vim-oscyank'
 " All of your Plugins must be added before the following line
 " marks ?
 " Plug 'kshenoy/vim-signature'
+
+" Clojure
+Plug 'Olical/conjure', { 'tag': 'v4.50.0' }
+
 call plug#end()            " required
 
 " --------------
@@ -203,6 +207,7 @@ noremap <Right> <NOP>
 
 " leader key is ,
 let mapleader = ','
+let maplocalleader = ','
 " don't throw away backward search
 noremap \ ,
 
@@ -260,9 +265,20 @@ set background=dark
 let g:gruvbox_italic=1
 colorscheme gruvbox
 
+" pane color from tmux
+highlight Normal ctermfg=223 ctermbg=none guifg=#ebdbb2 guibg=none
+
 " custom split bar
 set fillchars+=vert:\ 
-hi VertSplit ctermbg=bg
+hi VertSplit ctermbg=238
+
+if has('nvim')
+  " hi ActiveWindow ctermbg=00 | hi InactiveWindow ctermbg=235
+  set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+
+  au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow ctermbg=none | hi InactiveWindow ctermbg=237
+  au VimLeave,WinLeave,BufLeave,BufWinLeave,FocusLost * hi ActiveWindow ctermbg=237 | hi InactiveWindow ctermbg=none
+endif
 
 
 " --------------------
@@ -478,6 +494,12 @@ let g:pymode_python = 'python3'
 " Clipboard
 " ---------
 set clipboard=unnamedplus
+
+" Conjure
+" ------
+" File mappings for docker
+let g:conjure#relative_file_root = getcwd()
+" let g:conjure#path_subs = { '/root/.m2' :  '/home/fatz/.m2', '/clov3s': '/home/fatz/clov3s' }
 
 " Custom commands
 " -------------
